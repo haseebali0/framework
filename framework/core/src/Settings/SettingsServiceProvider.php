@@ -27,6 +27,7 @@ class SettingsServiceProvider extends AbstractServiceProvider
             return new Collection([
                 'theme_primary_color' => '#4D698E',
                 'theme_secondary_color' => '#4D698E',
+                'theme_font_family' => 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, Cantarell, Oxygen, Roboto, Helvetica, Arial, sans-serif;'
             ]);
         });
 

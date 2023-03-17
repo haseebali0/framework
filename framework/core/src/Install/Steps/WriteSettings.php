@@ -73,6 +73,7 @@ class WriteSettings implements Step
             'theme_dark_mode' => '0',
             'theme_primary_color' => '#4D698E',
             'theme_secondary_color' => '#4D698E',
+            'theme_font_family' => 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, Cantarell, Oxygen, Roboto, Helvetica, Arial, sans-serif;',
             'welcome_message' => 'Enjoy your new forum! Hop over to discuss.flarum.org if you have any questions, or to join our community!',
             'welcome_title' => 'Welcome to Flarum',
         ];

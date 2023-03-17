@@ -13,6 +13,7 @@ core:
       colors_heading: Colors
       colors_primary_label: Primary Color
       colors_secondary_label: Secondary Color
+      font_family: Font Family
       colors_text: "Choose two colors to theme your forum with. The first will be used as a highlight color, while the second will be used to style background elements."
       custom_footer_heading: Custom Footer
       custom_footer_text: => core.ref.custom_footer_text

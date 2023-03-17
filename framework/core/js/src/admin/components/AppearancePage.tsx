@@ -121,6 +121,16 @@ export default class AppearancePage extends AdminPage {
       50
     );
 
+    items.add(
+      'font_family',
+      this.buildSettingComponent({
+        type: 'textarea',
+        setting: 'theme_font_family',
+        label: app.translator.trans('core.admin.appearance.font_family'),
+      }),
+      50
+    );
+
     items.add('submit', this.submitButton(), 0);
 
     return items;

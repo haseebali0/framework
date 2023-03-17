@@ -154,6 +154,9 @@ class FrontendServiceProvider extends AbstractServiceProvider
                         return $value ? 'true' : 'false';
                     },
                 ],
+                'config-font-family' => [
+                    'key' => 'theme_font_family',
+                ],
             ];
         });
 
