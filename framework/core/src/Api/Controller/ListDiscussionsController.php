@@ -16,8 +16,10 @@ use Flarum\Discussion\Search\DiscussionSearcher;
 use Flarum\Http\RequestUtil;
 use Flarum\Http\UrlGenerator;
 use Flarum\Query\QueryCriteria;
+use Flarum\SearchSuggestion\Command\SaveSearchSuggestion;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
+use Illuminate\Contracts\Bus\Dispatcher;
 
 class ListDiscussionsController extends AbstractListController
 {
@@ -41,7 +43,8 @@ class ListDiscussionsController extends AbstractListController
      */
     public $optionalInclude = [
         'firstPost',
-        'lastPost'
+        'lastPost',
+        'search_suggestions'
     ];
 
     /**
@@ -68,17 +71,20 @@ class ListDiscussionsController extends AbstractListController
      * @var UrlGenerator
      */
     protected $url;
+    protected $bus;
 
     /**
      * @param DiscussionFilterer $filterer
      * @param DiscussionSearcher $searcher
      * @param UrlGenerator $url
      */
-    public function __construct(DiscussionFilterer $filterer, DiscussionSearcher $searcher, UrlGenerator $url)
+    public function __construct(DiscussionFilterer $filterer, DiscussionSearcher $searcher, UrlGenerator $url, Dispatcher $bus)
     {
         $this->filterer = $filterer;
         $this->searcher = $searcher;
         $this->url = $url;
+        $this->bus = $bus;
+        
     }
 
     /**
@@ -98,6 +104,10 @@ class ListDiscussionsController extends AbstractListController
         $criteria = new QueryCriteria($actor, $filters, $sort, $sortIsDefault);
         if (array_key_exists('q', $filters)) {
             $results = $this->searcher->search($criteria, $limit, $offset);
+            //save search only if there are results
+            if(count($results->getResults())){
+                $this->bus->dispatch(new SaveSearchSuggestion($filters['q']));
+            }
         } else {
             $results = $this->filterer->filter($criteria, $limit, $offset);
         }
